@@ -1,0 +1,30 @@
+# Smart Bus Ticket Booking & Reservation System — Test Cases
+
+Actual results below are based on the implementation verification executed during project preparation.
+
+| Test ID | Scenario | Input / Action | Expected Result | Actual Result | Status |
+|---|---|---|---|---|---|
+| TC-01 | View all routes | Choose option 1 | All five routes and seat status appear | Five route records exist and the executed application displays all five routes | PASS |
+| TC-02 | Search Hyderabad | Choose option 2; enter Hyderabad | R101, R103, and R105 appear | Search logic matched R101, R103, and R105 | PASS |
+| TC-03 | Unknown city | Search Atlantis | No-match message; program continues | No matching route found; search returns safely | PASS |
+| TC-04 | Book two seats | Ahmed, age 24, R101, 2 seats | Booking confirmed for Rs. 2,400; R101 becomes 38/40 | B1001 created, fare Rs. 2,400, R101 became 38/40 | PASS |
+| TC-05 | Zero seats | Book 0 seats | Reject; no booking or seat change | Rejected; no booking created; R101 remained 40/40 | PASS |
+| TC-06 | Too many seats | Request 41 seats on R101 | Reject; availability never becomes negative | Rejected; no booking created; R101 remained 40/40 | PASS |
+| TC-07 | Cancel confirmed booking | Cancel B1001 after valid booking | Status changes and seats restore | Status became Cancelled; 2 seats restored to R101 | PASS |
+| TC-08 | Cancel same booking again | Cancel B1001 again | Reject; no second restoration | Rejected as already cancelled; availability stayed 40/40 | PASS |
+| TC-09 | Report with no bookings | Reset session; generate report | Booking totals/revenue zero; route status counted | Fresh state contains zero bookings and zero initially fully booked routes; report logic verified | PASS |
+| TC-10 | Book all seats | Book exactly 40 R101 seats | Booking succeeds; availability becomes zero | Full 40-seat booking succeeds; R101 becomes 0/40 | PASS |
+| TC-11 | Report after cancellation | Book then cancel; generate report | Cancelled count increases; cancelled fare excluded | Confirmed revenue calculated as Rs. 0 after cancellation | PASS |
+| TC-12 | Invalid menu option | Enter 99 | Helpful error; return to menu | Explicit invalid-choice branch verified and live demo executed with 99 | PASS |
+
+## Additional edge checks
+
+- Blank passenger name: rejected.
+- Non-numeric age: rejected.
+- Zero/negative age: rejected.
+- Unknown route: rejected.
+- Non-numeric/zero/negative seat quantity: rejected.
+- Empty booking history: handled.
+- Booking IDs are tracked in a set.
+- Cancelled records remain in booking history.
+- Available seats are only changed after successful validation.
